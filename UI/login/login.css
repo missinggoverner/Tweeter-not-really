@@ -5,7 +5,7 @@ body {
     background: url(./bg/wallpaperflare.com_wallpaper.jpg);
     background-size: cover;
     color: rgb(255, 248, 248);
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     height: 100vh;
     font-size: 18px;
     display: flex;
@@ -17,11 +17,8 @@ body {
     width: 400px;
     max-width: 400px;
     margin: 1rem;
-    /*1rem = 18px*/
     padding: 2rem;
     box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
-    -shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
-    ;
     border-radius: 50px;
 }
 
@@ -33,33 +30,81 @@ body {
     box-shadow: 5px 10px;
 }
 
-.form > *:first-child {
-    margin-top: 0;
-    padding-top: 0.5cm;
+.form__title {
+    margin-bottom: 1rem;
 }
 
-.form > *:first-child {
-    margin-top: 0;
-}
-
-.form_message {
+.form__message {
     text-align: center;
     margin-bottom: 1rem;
 }
 
-.form_message--success {
+.form__message--success {
     color: green;
 }
+
 .form__message--error {
-    color: red;
-}
-a:link {
-    color: aqua;
-    background-color: transparent;
-    text-decoration: none;
+    color: rgb(235, 66, 66);
 }
 
-a:visited {
+.form__input-group {
+    margin-bottom: 1rem;
+}
+
+.form__input {
+    display: block;
+    width: 80%;
+    padding: 0.75rem;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid #dddddd;
+    outline: none;
+    background: #eeeeee;
+    transition: background 0.2s, border-color 0.2s;
+    margin: 0 auto;
+}
+
+.form__input:focus {
+    border-color: aqua;
+    background: #ffffff;
+}
+
+.form__input-error {
+    border-color: rgb(235, 66, 66);
+}
+
+.form__input-error-message {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: rgb(235, 66, 66);
+}
+
+.form__button {
+    width: 80%;
+    height: 40px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: gray;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background: #eeeeee;
+}
+
+.form__button:hover {
+    background: pink;
+}
+
+.form__button:active {
+    color: aqua;
+    transform: scale(0.98);
+}
+
+.form_link {
+    cursor: pointer;
+}
+
+a {
     color: aqua;
     background-color: transparent;
     text-decoration: none;
@@ -67,22 +112,40 @@ a:visited {
 
 a:hover {
     color: pink;
-    background-color: transparent;
     text-decoration: underline;
 }
 
 a:active {
     color: yellow;
-    background-color: transparent;
     text-decoration: underline;
 }
-
 
 .tribute {
     padding-bottom: 0.5cm;
 }
 
-/*  */
+.Guest {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+}
 
-/* play with vars for different effets */
+.Guest button {
+    padding: 0.5rem 1rem;
+    font-size: 16px;
+    background-color: var(--color--primary);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
 
+.Guest button:hover {
+    transform: scale(1.1);
+}
+
+.Guest button:active {
+    color: aqua;
+    transform: scale(0.98);
+}

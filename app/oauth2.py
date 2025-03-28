@@ -25,11 +25,11 @@ def create_access_token(data: dict): # token creation
 def verify_access_token(token: str, credentials_exception): # verify the validity of a JWT
     try: # loop
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM]) # Decodes the token, verifying its signature and extracting the payload. If the token is invalid, it raises a JWTError.
-        id = str(payload.get("user_id")) # Extracts the user_id from the decoded payload.
+        user_name = str(payload.get("user_name")) # Extracts the user_id from the decoded payload.
 
-        if id is None: # Checks if the user_id is present. If not, raises the credentials exception.
+        if user_name is None: # Checks if the user_id is present. If not, raises the credentials exception.
             raise credentials_exception
-        token_data = schemas.TokenData(id=id) # Creates a TokenData object containing the user_id.
+        token_data = schemas.TokenData(user_name=user_name) # Creates a TokenData object containing the user_id.
     except JWTError:
         raise credentials_exception
     return token_data # retruns the id
@@ -40,6 +40,7 @@ def get_current_user(token: str = Depends(oauth2_scheme),
         status_code=status.HTTP_401_UNAUTHORIZED, detail="could not validate credentials",
         headers={"WWW-Authenticate": "Bearer"})
     token = verify_access_token(token, credentials_exception) 
-    user = db.query(models.user).filter(models.user.id == token.id).first()
+    user = db.query(models.user).filter(models.user.user_name == token.user_name).first()
+    
     
     return user

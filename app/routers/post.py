@@ -41,9 +41,9 @@ def Get_post(id: int, db: Session = Depends(get_db)): #to get individual post
 
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=schemas.Post)
 def create_posts(post: schemas.CreatePost, db: Session = Depends(get_db),
-                    current_user: int = Depends(oauth2.get_current_user)):
+                    current_user: str = Depends(oauth2.get_current_user)):
     print(current_user)
-    new_post = models.Post(owner_id=current_user.id,**post.dict())
+    new_post = models.Post(user_name=current_user.user_name,**post.dict())
     db.add(new_post)
     db.commit()
     db.refresh(new_post)

@@ -1,8 +1,8 @@
 from fastapi import FastAPI  
 from .routers import post, user, auth, votes
 from .database import engine
-from .import models
 from fastapi.middleware.cors import CORSMiddleware
+# from .import models
 #  models.Base.metadata.create_all(bind=engine) tells sqlalchemy to import all the tables in the begining
 
 app = FastAPI() # creating the main controller of your website "Let’s make a new FastAPI app"
@@ -24,3 +24,7 @@ app.include_router(post.router) #Let’s add the router for posts || When someon
 app.include_router(user.router) #Let’s add the router for user || A route could lead to a function that shows a page for adding a new post (/posts/new).
 app.include_router(auth.router) #Let’s add the router for auth || A route is a mapping between a URL (/login) and a function in your code that handles what happens when someone visits that URL.
 app.include_router(votes.router)
+
+
+
+# refrance https://www.youtube.com/watch?v=0sOvCWFmrtA

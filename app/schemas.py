@@ -15,17 +15,19 @@ class CreatePost(PostBase): # (Inheritance) It's like saying, "I want to use the
 
 
 class UserOut(BaseModel): # This is what will be returned when you retrieve a user’s information
-    id: int
+    user_name: str
     email: EmailStr
     created_at: datetime
+
     class Config:
         from_attributes = True
 
-class Post(PostBase): 
+class Post(BaseModel):
     id: int
+    title: str
+    content: str 
+    user_name: str 
     created_at: datetime
-    owner_id: int
-    owner: UserOut 
     class Config:
         from_attributes = True# This allows the model to work with SQLAlchemy objects. It lets you convert data from the database into Pydantic models more easily.
 
@@ -41,17 +43,19 @@ class UserCreate(BaseModel): # This defines the data structure for creating a ne
     email: EmailStr
     user_name: str
     password: str
+    conform_password: str
     
 
-class userlogin(UserCreate): # This is the structure for logging a user in they need to provide the following
-    pass
+class userlogin(BaseModel): # This is the structure for logging a user in they need to provide the following
+    user_name: str
+    password: str
 
 class Token(BaseModel): # This defines what a token looks like when it’s sent back to the user after they log in
     access_token: str # (the header(Algorithm), the payload, and the signature(the header + playload + secret key).)
     token_type:str # bearer 
 
 class TokenData(BaseModel): # after decoding the token u compare the id from the Token with the TokenData id 
-    id: Optional[str] = None
+    user_name: Optional[str] 
 
 class Vote(BaseModel):
     post_id: int

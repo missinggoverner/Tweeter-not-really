@@ -4,6 +4,10 @@ from sqlalchemy.sql.expression import text
 from sqlalchemy.sql.sqltypes import TIMESTAMP
 from .database import Base
 
+# pip install alembic
+# alembi init alembic  
+# alembic revision --autogenerate -m "Initial migration"
+# alembic upgrade head
 
 class Post(Base): # posts-table
     __tablename__ = "posts"
@@ -21,11 +25,9 @@ class Post(Base): # posts-table
     created_at = Column(TIMESTAMP(timezone=True),
                     nullable=False, 
                     server_default=text('now()'))
-    owner_id = Column(Integer, 
-                    ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    user_name = Column(String, 
+                    ForeignKey("users.user_name", ondelete="CASCADE"), nullable=False)
     
-
-    owner = relationship(("user"))
 
 
 class user(Base): # users-table
@@ -38,7 +40,7 @@ class user(Base): # users-table
                     unique=True)
     email = Column(String, 
                 nullable=False, 
-                unique=True)
+                unique=False)
     password = Column(String, 
                     nullable=False)
     created_at = Column(TIMESTAMP(timezone=True),
