@@ -17,10 +17,10 @@ def create_user(user: schemas.UserCreate,
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                             detail="Username already exists")
     
-    
     if user.password != user.conform_password:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                             detail="Password and confirm password do not match")
+
     
     hashed_password = utils.hash(user.password)  # Hash the password here
 
