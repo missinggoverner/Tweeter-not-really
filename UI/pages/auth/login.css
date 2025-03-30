@@ -2,7 +2,6 @@ body {
     --color--primary: rgb(83, 77, 77);
     --color--secondary: rgb(100, 100, 100);
 
-    background: url(./bg/wallpaperflare.com_wallpaper.jpg);
     background-size: cover;
     color: rgb(255, 248, 248);
     font-family: Verdana, Geneva, Tahoma, sans-serif;

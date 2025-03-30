@@ -96,3 +96,22 @@
     transform: translateY(-50%);
 }
 
+.no-posts {
+    width: 80%;
+    height: 100px;
+    margin: auto;
+    border: 1px solid #e1e8ed;
+    margin-top: 300px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    display: none;
+}
+.greeting {
+    width: 80%;
+    height: 100px;
+    margin: auto;
+    margin-top: 10px;
+    font-size: 25px;
+}
+

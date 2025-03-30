@@ -1,13 +1,41 @@
 let content = document.querySelector(".content");
+let greeting = document.querySelector(".greeting");
+let jwtToken = localStorage.getItem('token');
 
+let user = localStorage.getItem('user');
+console.log(user);
+
+console.log(jwtToken);
+
+greeting.innerHTML = `Hello, ${user}`;
+const getUserPosts = async () => {
+    try {
+        const response = await fetch('http://localhost:8000/posts/mine', {
+            method: 'GET',
+            headers: {
+            'Authorization': `Bearer ${jwtToken}`
+        },
+    });
+    if (response.ok) {
+        const data = await response.json();
+        if (data.length == 0) {
+            console.log('No posts found');
+            document.querySelector('.no-posts').style.display = 'flex';
+        } else {
+            console.log(data);
+        }
+    } 
+    } catch (error) {
+        console.error('Fetch error:', error);
+    }
+}
+
+getUserPosts();
 document.querySelector('#home').addEventListener('click', async (e) => {
     e.preventDefault();
     try {
         const response = await fetch('http://localhost:8000/posts/', {
             method: 'GET',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            }
         });
 
         if (!response.ok) {

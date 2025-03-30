@@ -17,7 +17,8 @@
 <body>
     <div class="app">
         <div class="bar">
-            <div class="Home">
+
+            <div class="Home" id="home">
                 <div class="home-icon">
                     <i class="fa-solid fa-house"></i>
                 </div>
@@ -31,8 +32,21 @@
                 Post
             </div>
 
+            <div class="post">
+                <div class="post-icon">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                Profile
+            </div>
+
         </div>
         <div class="content">
+
+            <div class="greeting">
+                <h1>Hello, </h1>
+            </div>
+
+            
         </div>
         <div class="extra">
             <div class="search">
@@ -41,8 +55,11 @@
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </div>
             </div>
+            <div class="no-posts">
+                You have no posts yet!
+            </div>
         </div>
-        <script src="app.js"></script>
+        <script src="app.js" type="module"></script>
 </body>
 
 </html>

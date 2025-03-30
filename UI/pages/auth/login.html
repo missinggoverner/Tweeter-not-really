@@ -4,10 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="login.css">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
-    <link rel="manifest" href="favicon/site.webmanifest">
-    <link rel="mask-icon" href="favicon/safari-pinned-tab.svg" color="#5bbad5">
     <title>Login</title>
 </head>
 <body>
@@ -20,16 +16,16 @@
             
             <div class="form__input-group"> <!-- email -->
 
-                <input type="text" class="form__input" name="username" autofocus placeholder="Username">
+                <input type="text" class="form__input" id="username" name="username" autofocus placeholder="Username">
                 <div class="form__input-error-message"></div>  <!-- email error -->
             </div>
 
             <div class="form__input-group"> <!-- password -->
-                <input type="password" class="form__input" name="password" placeholder="Password">
+                <input type="password" class="form__input" id="password" name="password" placeholder="Password">
                 <div class="form__input-error-message"></div>  <!-- password error -->
             </div>
 
-            <button class="form__button" type="submit">Continue</button> <!-- button -->
+            <button class="form__button" type="submit" id="loginButton">Continue</button> <!-- button -->
 
             <p class="form__text"> <!-- forgot your password -->
                 <a href="#" class="form_link">Forgot your password?</a>
@@ -38,7 +34,7 @@
             <p class="form__text"> <!-- create account -->
                 <a class="form_link" href="signup.html" id="linkCreateAccount">Create account</a>
             </p>
-            <p class="tribute">Powered by KWM</p>
+
         </form>
     </div>
     <div class="Guest">
@@ -46,6 +42,6 @@
     </div>
 
     </div>
-    <script src="login.js"></script>
+    <script src="login.js" type="module"></script>
 </body>
 </html>

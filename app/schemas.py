@@ -1,4 +1,5 @@
 from pydantic import BaseModel, EmailStr, Field
+from fastapi import Form
 from datetime import datetime
 from typing import Optional
 
@@ -47,12 +48,13 @@ class UserCreate(BaseModel): # This defines the data structure for creating a ne
     
 
 class userlogin(BaseModel): # This is the structure for logging a user in they need to provide the following
-    user_name: str
-    password: str
+    user_name: str = Form(...)
+    password: str = Form(...)
 
 class Token(BaseModel): # This defines what a token looks like when it’s sent back to the user after they log in
     access_token: str # (the header(Algorithm), the payload, and the signature(the header + playload + secret key).)
     token_type:str # bearer 
+    user_name: str
 
 class TokenData(BaseModel): # after decoding the token u compare the id from the Token with the TokenData id 
     user_name: Optional[str] 
