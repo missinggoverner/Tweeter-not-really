@@ -26,7 +26,7 @@
     border-left: 1px solid #e1e8ed;
 }
 
-.Home {
+.util {
     width: 100%;
     height: 50px;
     border-bottom: 1px solid #e1e8ed;
@@ -38,17 +38,10 @@
     font-size: 20px;
     font-weight: 300;
 }
-.post {
-    width: 100%;
-    height: 50px;
-    border-bottom: 1px solid #e1e8ed;
-    margin-top: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    font-size: 20px;
-    font-weight: 300;
+
+.util:hover {
+    cursor: pointer;
+    font-weight: 500;
 }
 
 .content {
@@ -57,7 +50,60 @@
     border-right: 1px solid #e1e8ed;
     border-left: 1px solid #e1e8ed;
 }
+.post-container {
+    width: 100%;
+    height: max-content;
+    border-bottom: 1px solid #e1e8ed;
+    border-top: 1px solid #e1e8ed;
+    display: flex;
+    flex-direction: column;
+}
 
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+.user-name {
+    margin-left: 10px;
+    color: #0d9cf5;
+    font-size: 20px;
+    cursor: pointer;
+}
+.title{
+    margin-left: 70px;
+    font-size: 20px;
+}
+.text {
+    width: 50%;
+    height: max-content;
+    border: 1px solid #e1e8ed;
+    margin: auto;
+    padding: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    box-shadow: 3px 2px 29px 0 rgba(235, 231, 231, 0.5);
+
+}
+
+.vote-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.vote-button {
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+}
+.vote-button:hover {
+    color: #0d9cf5;
+    transform: scale(1.1);
+}
 .extra {
     width: 500px;
     height: 100%;
@@ -96,16 +142,24 @@
     transform: translateY(-50%);
 }
 
-.no-posts {
-    width: 80%;
-    height: 100px;
+.my-posts {
+    width: 100%;
+    height: max-content;
+    padding: 20px;
     margin: auto;
+}
+
+.no-posts {
+    width: 400px;
+    height: 100px;
+    align-items: center;
+    justify-content: center;
     border: 1px solid #e1e8ed;
     margin-top: 300px;
     text-align: center;
     align-items: center;
     justify-content: center;
-    display: none;
+    display: flex;
 }
 .greeting {
     width: 80%;
@@ -114,4 +168,6 @@
     margin-top: 10px;
     font-size: 25px;
 }
+
+
 

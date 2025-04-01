@@ -21,11 +21,12 @@ def Get_posts(db: Session = Depends(get_db),
     return results
 
 
-@router.get("/mine", response_model=List[schemas.Post]) 
+@router.get("/mine", response_model=List[schemas.PostOut]) 
 def Get_my_posts(db: Session = Depends(get_db),
                 current_user: int = Depends(oauth2.get_current_user)): 
-    posts = db.query(models.Post).filter(
-        models.Post.user_name  == current_user.user_name).all()
+    posts = db.query(models.Post, func.count(models.Vote.post_id).label("votes")).join(
+        models.Vote, models.Vote.post_id == models.Post.id, isouter=True).group_by(
+        models.Post.id).filter(models.Post.user_name == current_user.user_name).all()
     
     return posts
 

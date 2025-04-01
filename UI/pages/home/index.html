@@ -18,25 +18,40 @@
     <div class="app">
         <div class="bar">
 
-            <div class="Home" id="home">
+            <div class="Home util" id="home">
                 <div class="home-icon">
                     <i class="fa-solid fa-house"></i>
                 </div>
                 Home
             </div>
 
-            <div class="post">
+            <div class="post util">
+                <div class="post-icon">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                Profile
+            </div>
+
+            <div class="post util">
                 <div class="post-icon">
                     <i class="fa-solid fa-arrow-up"></i>
                 </div>
                 Post
             </div>
 
-            <div class="post">
+
+            <div class="update util">
                 <div class="post-icon">
-                    <i class="fa-solid fa-user"></i>
+                    <i class="fa-solid fa-pen-to-square"></i>
                 </div>
-                Profile
+                Update post
+            </div>
+
+            <div class="delete util">
+                <div class="post-icon">
+                    <i class="fa-solid fa-trash"></i>
+                </div>
+                Delete post
             </div>
 
         </div>
@@ -45,7 +60,6 @@
             <div class="greeting">
                 <h1>Hello, </h1>
             </div>
-
             
         </div>
         <div class="extra">
@@ -55,9 +69,13 @@
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </div>
             </div>
-            <div class="no-posts">
-                You have no posts yet!
+
+            <div class="my-posts">
+                <div class="no-posts">
+                    You have no posts yet!
+                </div>
             </div>
+
         </div>
         <script src="app.js" type="module"></script>
 </body>
