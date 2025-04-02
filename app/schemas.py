@@ -31,9 +31,9 @@ class Post(BaseModel):
     created_at: datetime
     class Config:
         from_attributes = True# This allows the model to work with SQLAlchemy objects. It lets you convert data from the database into Pydantic models more easily.
-        json_encoders = {
-            datetime: lambda v: v.strftime("%Y-%m-%d")
-        }
+        # json_encoders = {
+        #     datetime: lambda v: v.strftime("%Y-%m-%d")
+        # }
 
 
 class PostOut(BaseModel):

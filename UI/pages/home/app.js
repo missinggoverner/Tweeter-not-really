@@ -7,6 +7,9 @@ let noPosts = document.querySelector('.no-posts');
 let jwtToken = localStorage.getItem('token');
 let user = localStorage.getItem('user');
 
+let moment = require('moment');
+
+// browserify UI/pages/home/app.js -o bundle.js
 
 const placement = (posts) => {
 
@@ -29,7 +32,7 @@ const placement = (posts) => {
             // Date
             let date = document.createElement("div");
             date.className = "date"; 
-            date.innerHTML = `Date: ${posts.Post.created_at}`;
+            date.innerHTML = `Posted ${moment(posts.Post.created_at).fromNow()}`;
             header.appendChild(date);
 
             // Post Title
@@ -84,7 +87,7 @@ const myPlacement = (posts) => {
         // Date
         let date = document.createElement("div");
         date.className = "date"; 
-        date.innerHTML = `Date: ${post.Post.created_at}`;
+        date.innerHTML = `Posted ${moment(post.Post.created_at).fromNow()}`;
         header.appendChild(date);
 
         // Post Title
