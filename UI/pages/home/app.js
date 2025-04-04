@@ -1,7 +1,10 @@
 let content = document.querySelector(".content");
 let greeting = document.querySelector(".greeting");
-let home = document.querySelector('#home')
 let myPosts = document.querySelector('.my-posts');
+let post = document.querySelector('.post');
+let update = document.querySelector('.update');
+let del = document.querySelector('.delete');
+
 
 let jwtToken = localStorage.getItem('token');
 let user = localStorage.getItem('user');
@@ -105,6 +108,10 @@ const placement = (posts) => {
                 const error = await response.json();
                 console.error('Error:', error.detail);
             }
+            if (response.ok) { 
+                content.innerHTML = '';
+                homePage()
+            }
         } catch (error) {
             console.error('Fetch error:', error);
         }
@@ -130,6 +137,11 @@ const placement = (posts) => {
                 const error = await response.json();
                 console.error('Error:', error.detail);
             }
+            if (response.ok) { 
+                content.innerHTML = '';
+                homePage()
+            }
+
         } catch (error) {
             console.error('Fetch error:', error);
         }
@@ -234,9 +246,6 @@ const homePage = async () => {
 
 homePage();
 
-home.addEventListener('click', () => {
-    homePage();
-});
 
 const postNewPost = () => {
     return
