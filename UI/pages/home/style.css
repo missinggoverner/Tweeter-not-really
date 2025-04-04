@@ -102,6 +102,11 @@
     color: #0d9cf5;
     transform: scale(1.1);
 }
+
+.id {
+    display: none;
+}
+
 .extra {
     width: 500px;
     height: 100%;
@@ -150,6 +155,7 @@
 .no-posts {
     width: 400px;
     height: 100px;
+    margin: auto;
     align-items: center;
     justify-content: center;
     border: 1px solid #e1e8ed;
@@ -158,6 +164,7 @@
     align-items: center;
     justify-content: center;
     display: flex;
+    
 }
 .greeting {
     width: 80%;
