@@ -3,6 +3,16 @@ let content = document.querySelector(".content");
 let greeting = document.querySelector(".greeting");
 let myPosts = document.querySelector('.my-posts');
 let post = document.querySelector('.post');
+console.log('Post element:', post);
+let newPost = document.querySelector('.new-post');
+console.log('New post element:', newPost);
+
+let newPostTitle = document.querySelector('.new-post-title');   
+let newPostContent = document.querySelector('.new-post-content');
+let newPostBtn = document.querySelector('.post-button');
+let cancelBtn = document.querySelector('.cancel-button');
+
+let noPosts = document.querySelector('.no-posts');
 let update = document.querySelector('.update');
 let del = document.querySelector('.delete');
 
@@ -211,7 +221,7 @@ const getUserPosts = async () => {
 
             } else {
                 document.querySelector('.no-posts').style.display = 'none';
-                myPosts.innerHTML = '';
+
                 console.log(data);
                 myPlacement(data);
             }
@@ -247,18 +257,63 @@ const homePage = async () => {
 
 homePage();
 
+cancelBtn.addEventListener('click', () => {
+    newPost.style.display = 'none';
+    newPostTitle.value = '';
+    newPostContent.value = '';
+})
 
-const postNewPost = () => {
-    return
-}
+newPostBtn.addEventListener('click', async () => {
+    if ( newPostTitle.value.trim() === ''){
+        newPostTitle.value = "Can't be Empty";
+    }else if( newPostContent.value.trim() === '' ){
+        newPostContent.value = "Can't be Empty";
+    }
+    else{
+        
+    const sendData = {
+        title: newPostTitle.value,
+        content: newPostContent.value
+    }
+    try {
+        const response = await fetch('http://localhost:8000/posts/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${jwtToken}`
+            },
+            body: JSON.stringify(sendData)
+        });
+        if (!response.ok) {
+            const error = await response.json();
+            console.error('Error:', error.detail);
+        }
+        if (response.ok) {
+            content.innerHTML = '';
+            homePage()
+            newPost.style.display = 'none';
+            newPostTitle.value = '';
+            newPostContent.value = '';
+        }
+    } catch (error) {
+        console.error('Fetch error:', error);
+    }
+    }
+});
 
-const deletePost = () => {
-    return
-}
+post.addEventListener('click', () => {
+    console.log('clicked');
+    noPosts.style.display = 'none';
+    newPost.style.display = 'flex';
+})
 
-const editPost = () => {
+update.addEventListener('click', () => {
     return
-}
+})
+
+del.addEventListener('click', () => {
+    return
+})
 
 
 

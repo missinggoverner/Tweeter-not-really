@@ -178,5 +178,60 @@
     color: #0d9cf5;
 }
 
+.new-post {
+    width: 400px;
+    height: 400px;
+    margin: auto;
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    display: none;
+}
 
+.new-post-title{
+    width: 100%;
+    height: 40px;
+    border-radius: 15px;
+    padding: 10px;
+    font-size: 20px;
+    border: 1px solid #e1e8ed;
+}
+
+.new-post-content{
+    width: 100%;
+    height: 50%;
+    border-radius: 15px;
+    padding: 10px;
+    font-size: 20px;
+    border: 1px solid #e1e8ed;
+    display: flex;
+    resize: none;
+    flex-wrap: wrap;
+}
+
+.btn-container {
+    margin-left: auto;
+    display: flex;
+    gap: 10px;
+}
+
+.new-post-btn{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid #e1e8ed;
+    cursor: pointer;
+    font-size: 20px;
+}
+.new-post-btn:hover{
+    transform: scale(1.1);
+}
+
+.post-button:hover{
+    border: 2px solid #0d9cf5;
+}
+.cancel-button:hover{
+    border: 2px solid #f50d0d;
+}
 
