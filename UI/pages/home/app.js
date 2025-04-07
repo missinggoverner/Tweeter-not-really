@@ -10,6 +10,7 @@ let newPostContent = document.querySelector('.new-post-content');
 let newPostBtn = document.querySelector('.post-button');
 let cancelBtn = document.querySelector('.cancel-button');
 
+
 let noPosts = document.querySelector('.no-posts');
 let update = document.querySelector('.update');
 let del = document.querySelector('.delete');
@@ -158,6 +159,7 @@ const placement = (posts) => {
 }
 
 let delButton = false;
+let updateButton = false;
 
 const myPlacement = (posts) => {
 
@@ -223,12 +225,84 @@ const myPlacement = (posts) => {
                     }
                     if (response.ok) {
                         content.innerHTML = '';
+                        extraPosts.innerHTML = '';
                         homePage()
                         getUserPosts()
+                        delButton = false;
                     }
                 } catch (error) {
                     console.error('Fetch error:', error);
                 }
+
+            })
+        }
+        if (updateButton === true) {
+            let updateBtn = document.createElement('button');
+            updateBtn.className = 'update-btn';
+            updateBtn.innerHTML = 'Update';
+            myPost.appendChild(updateBtn);
+
+            updateBtn.addEventListener('click', () => {
+                let oldTitle = post.Post.title;
+                let oldContent = post.Post.content;
+
+                let newTitle = document.createElement('input');
+                newTitle.className = 'update-title new-post-title';
+                newTitle.value = oldTitle;
+
+                let newContent = document.createElement('textarea')
+                newContent.className = 'update-text  new-post-content';
+                newContent.value = oldContent;
+
+                title.parentNode.replaceChild(newTitle, title);
+                text.parentNode.replaceChild(newContent, text);
+
+                let updateCheck = document.createElement('button');
+                updateCheck.className = 'update-check';
+                updateCheck.innerHTML = 'Check'
+
+                let updateCancel = document.createElement('button')
+                updateCancel.className = 'update-cancel';
+                updateCancel.innerHTML = 'Cancel'
+
+                myPost.append(updateCheck, updateCancel)
+                updateBtn.remove()
+
+                updateCancel.addEventListener('click', () => {
+                    extraPosts.innerHTML = '';
+                    getUserPosts()
+                })
+                updateCheck.addEventListener('click', async () => {
+
+                    let sendData = {
+                        title: newTitle.value,
+                        content: newContent.value
+                    }
+                    try {
+                        const response = await fetch(`http://127.0.0.1:8000/posts/${post.Post.id}`, {
+                            method: "PUT",
+                            headers: {
+                                'content-type': 'application/json',
+                                'Authorization': `Bearer ${jwtToken}`
+                            },
+                            body: JSON.stringify(sendData)
+                        });
+
+                        if (!response.ok) {
+                            let answer = response.json;
+                            console.log("error:", answer);
+                        }
+                        if (response.ok) {
+                            updateButton = false;
+                            content.innerHTML = '';
+                            extraPosts.innerHTML = '';
+                            homePage()
+                            getUserPosts()
+                        }
+                    } catch (error) {
+                        console.error("Error:", error)
+                    }
+                })
             })
         }
     });
@@ -248,6 +322,7 @@ const getUserPosts = async () => {
             const data = await response.json();
             if (data.length === 0) {
                 console.log('No posts found');
+                extraPosts.innerHTML = '';
 
             } else {
                 document.querySelector('.no-posts').style.display = 'none';
@@ -340,10 +415,6 @@ post.addEventListener('click', () => {
     newPost.style.display = 'flex';
 })
 
-update.addEventListener('click', () => {
-    return
-})
-
 del.addEventListener('click', () => {
     console.log(delButton);
     if (delButton === false) {
@@ -355,5 +426,14 @@ del.addEventListener('click', () => {
     }
 })
 
+update.addEventListener('click', () => {
+    if (updateButton === false) {
+        updateButton = true;
+        getUserPosts();
+    } else {
+        updateButton = false;
+        getUserPosts();
+    }
+})
 
 
