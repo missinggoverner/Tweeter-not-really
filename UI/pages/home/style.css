@@ -19,16 +19,17 @@
 
 .bar {
     width: 300px;
-    height: 50%;
+    height: max-content;
     border-right: 1px solid #e1e8ed;
     border-left: 1px solid #e1e8ed;
     border-bottom: 1px solid #e1e8ed;
+    margin-right: 30px;
 }
 
 .util {
     width: 100%;
     height: 50px;
-    /* border-bottom: 1px solid #e1e8ed; */
+    border-bottom: 1px solid #e1e8ed; 
     margin-top: 30px;
     display: flex;
     align-items: center;
@@ -44,17 +45,23 @@
     color: #0d9cf5;
 }
 
+.delete:hover{
+    color: #f50d0d;
+}
+
+.update:hover{
+    color: #f5f50d;
+}
+
 .content {
     width: 700px;
-    height: 100%;
-    border-right: 1px solid #e1e8ed;
-    border-left: 1px solid #e1e8ed;
+    height: max-content;
+    border: 1px solid #e1e8ed;
 }
 .post-container {
     width: 100%;
     height: max-content;
-    border-bottom: 1px solid #e1e8ed;
-    border-top: 1px solid #e1e8ed;
+    border: 1px solid #e1e8ed;
     display: flex;
     flex-direction: column;
 }
@@ -111,40 +118,8 @@
 
 .extra {
     width: 500px;
-    height: 100%;
-    border-right: 1px solid #e1e8ed;
-    border-left: 1px solid #e1e8ed;
-}
-
-.search {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 80%;
-    height: 50px;
-    margin: auto;
-    margin-top: 10px;
-    position: relative;
-}
-
-.search-input {
-    width: 100%;
-    height: 100%;
-    border-radius: 15px;
-    padding-left: 40px;
-    font-size: 20px;
+    height: max-content;
     border: 1px solid #e1e8ed;
-}
-.search-input:focus {
-    border: 1px solid #0d9cf5;
-}
-
-.search-icon {
-    position: absolute;
-    left: 10px;
-    top: 50%;
-    font-size: 20px;
-    transform: translateY(-50%);
 }
 
 .my-posts {
@@ -154,14 +129,29 @@
     margin: auto;
 }
 
+.my-posts-title{
+    width: 50%;
+    height: 50px;
+    border: 1px solid #e1e8ed;
+    margin: auto;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    border-radius: 15px;
+    
+}
+
 .no-posts {
     width: 400px;
     height: 100px;
     margin: auto;
+    margin-top: 20px;
     align-items: center;
     justify-content: center;
     border: 1px solid #e1e8ed;
-    margin-top: 300px;
     text-align: center;
     align-items: center;
     justify-content: center;
@@ -233,5 +223,28 @@
 }
 .cancel-button:hover{
     border: 2px solid #f50d0d;
+}
+
+.my-post-container{
+    height: max-content;
+    width: 100%;
+    border-bottom: 1px solid #e1e8ed;
+}
+
+.delete-btn{
+    width: 100px;
+    height: 40px;
+    border-radius: 15px;
+    border: 1px solid #e1e8ed;
+    cursor: pointer;
+    display: block;
+    margin: 10px;
+    margin-left: auto;
+}
+
+.delete-btn:hover{
+    background-color: #f50d0d;
+    color: #e1e8ed;
+    transform: scale(1.1);
 }
 

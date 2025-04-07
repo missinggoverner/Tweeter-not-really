@@ -2,11 +2,10 @@ let content = document.querySelector(".content");
 let greeting = document.querySelector(".greeting");
 let myPosts = document.querySelector('.my-posts');
 let post = document.querySelector('.post');
-console.log('Post element:', post);
-let newPost = document.querySelector('.new-post');
-console.log('New post element:', newPost);
+let newPost = document.querySelector('.new-post')
+let extraPosts = document.querySelector('.post-container');
 
-let newPostTitle = document.querySelector('.new-post-title');   
+let newPostTitle = document.querySelector('.new-post-title');
 let newPostContent = document.querySelector('.new-post-content');
 let newPostBtn = document.querySelector('.post-button');
 let cancelBtn = document.querySelector('.cancel-button');
@@ -40,7 +39,7 @@ const placement = (posts) => {
     // User Name
     let user_name = document.createElement("div");
     user_name.className = "user-name";
-    user_name.innerHTML = `By:@${posts.Post.user_name}`;
+    user_name.innerHTML = `@${posts.Post.user_name}`;
     header.appendChild(user_name);
 
     // Date
@@ -118,7 +117,7 @@ const placement = (posts) => {
                 const error = await response.json();
                 console.error('Error:', error.detail);
             }
-            if (response.ok) { 
+            if (response.ok) {
                 content.innerHTML = '';
                 homePage()
             }
@@ -147,7 +146,7 @@ const placement = (posts) => {
                 const error = await response.json();
                 console.error('Error:', error.detail);
             }
-            if (response.ok) { 
+            if (response.ok) {
                 content.innerHTML = '';
                 homePage()
             }
@@ -158,19 +157,22 @@ const placement = (posts) => {
     });
 }
 
+let delButton = false;
+
 const myPlacement = (posts) => {
 
     // Loop through each post in the array
     posts.forEach(post => {
+
         // Each post container
-        let postContainer = document.createElement("div");
-        postContainer.className = "post-container";
-        myPosts.appendChild(postContainer);
+        let myPost = document.createElement("div");
+        myPost.className = "my-post-container";
+        extraPosts.appendChild(myPost);
 
         // Post Header
         let header = document.createElement("div");
         header.className = "header";
-        postContainer.appendChild(header);
+        myPost.appendChild(header);
 
         // Date
         let date = document.createElement("div");
@@ -182,24 +184,53 @@ const myPlacement = (posts) => {
         let title = document.createElement("div");
         title.className = "title";
         title.innerHTML = `<strong>${post.Post.title}</strong>`;
-        postContainer.appendChild(title);
+        myPost.appendChild(title);
 
         // Post text
         let text = document.createElement("div");
         text.className = "text";
         text.innerHTML = post.Post.content;
-        postContainer.appendChild(text);
+        myPost.appendChild(text);
 
         // Vote Container
         let vote_container = document.createElement("div");
         vote_container.className = "vote-container";
-        postContainer.appendChild(vote_container);
+        myPost.appendChild(vote_container);
 
         // Votes
         let votes = document.createElement("div");
         votes.className = "votes";
         votes.innerHTML = `Total Votes: ${post.votes}`;
         vote_container.appendChild(votes);
+
+        if (delButton) {
+            let delBtn = document.createElement('button');
+            delBtn.className = 'delete-btn';
+            delBtn.innerHTML = 'Delete';
+            myPost.appendChild(delBtn);
+            delBtn.addEventListener('click', async () => {
+                try {
+                    const response = await fetch(`http://localhost:8000/posts/${post.Post.id}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Authorization': `Bearer ${jwtToken}`
+                        }
+                    })
+                    console.log(response);
+                    if (!response.ok) {
+                        const error = await response.json();
+                        console.error('Error:', error.detail);
+                    }
+                    if (response.ok) {
+                        content.innerHTML = '';
+                        homePage()
+                        getUserPosts()
+                    }
+                } catch (error) {
+                    console.error('Fetch error:', error);
+                }
+            })
+        }
     });
 }
 
@@ -220,8 +251,10 @@ const getUserPosts = async () => {
 
             } else {
                 document.querySelector('.no-posts').style.display = 'none';
-
                 console.log(data);
+                content.innerHTML = '';
+                extraPosts.innerHTML = '';
+                homePage();
                 myPlacement(data);
             }
         }
@@ -245,6 +278,7 @@ const homePage = async () => {
         }
         const data = await response.json();
         console.log(data);
+        content.innerHTML = '';
         data.forEach(posts => {
             placement(posts)
         });
@@ -263,45 +297,45 @@ cancelBtn.addEventListener('click', () => {
 })
 
 newPostBtn.addEventListener('click', async () => {
-    if ( newPostTitle.value.trim() === ''){
+    if (newPostTitle.value.trim() === '') {
         newPostTitle.value = "Can't be Empty";
-    }else if( newPostContent.value.trim() === '' ){
+    } else if (newPostContent.value.trim() === '') {
         newPostContent.value = "Can't be Empty";
     }
-    else{
-        
-    const sendData = {
-        title: newPostTitle.value,
-        content: newPostContent.value
-    }
-    try {
-        const response = await fetch('http://localhost:8000/posts/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${jwtToken}`
-            },
-            body: JSON.stringify(sendData)
-        });
-        if (!response.ok) {
-            const error = await response.json();
-            console.error('Error:', error.detail);
+    else {
+        const sendData = {
+            title: newPostTitle.value,
+            content: newPostContent.value
         }
-        if (response.ok) {
-            content.innerHTML = '';
-            homePage()
-            newPost.style.display = 'none';
-            newPostTitle.value = '';
-            newPostContent.value = '';
+        try {
+            const response = await fetch('http://localhost:8000/posts/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${jwtToken}`
+                },
+                body: JSON.stringify(sendData)
+            });
+            if (!response.ok) {
+                const error = await response.json();
+                console.error('Error:', error.detail);
+            }
+            if (response.ok) {
+                content.innerHTML = '';
+                content.innerHTML = '';
+                homePage()
+                getUserPosts()
+                newPost.style.display = 'none';
+                newPostTitle.value = '';
+                newPostContent.value = '';
+            }
+        } catch (error) {
+            console.error('Fetch error:', error);
         }
-    } catch (error) {
-        console.error('Fetch error:', error);
-    }
     }
 });
 
 post.addEventListener('click', () => {
-    console.log('clicked');
     noPosts.style.display = 'none';
     newPost.style.display = 'flex';
 })
@@ -311,7 +345,14 @@ update.addEventListener('click', () => {
 })
 
 del.addEventListener('click', () => {
-    return
+    console.log(delButton);
+    if (delButton === false) {
+        delButton = true;
+        getUserPosts();
+    } else {
+        delButton = false;
+        getUserPosts();
+    }
 })
 
 

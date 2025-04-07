@@ -16,7 +16,7 @@ def Get_posts(db: Session = Depends(get_db),
                 limit: int = 10, skip: int = 0, search: Optional[str] = ""): # Query Parameters
     # posts = db.query(models.Post).filter(models.Post.title.contains(search)).limit(limit).offset(skip).all()
     results = db.query(models.Post, func.count(models.Vote.post_id).label("votes")).join(
-        models.Vote, models.Vote.post_id == models.Post.id, isouter=True).group_by(models.Post.id).filter(
+        models.Vote, models.Vote.post_id == models.Post.id, isouter=True).group_by(models.Post.id).order_by(models.Post.created_at.desc()).filter(
             models.Post.title.contains(search)).limit(limit).offset(skip).all()
     return results
 
@@ -26,7 +26,7 @@ def Get_my_posts(db: Session = Depends(get_db),
                 current_user: int = Depends(oauth2.get_current_user)): 
     posts = db.query(models.Post, func.count(models.Vote.post_id).label("votes")).join(
         models.Vote, models.Vote.post_id == models.Post.id, isouter=True).group_by(
-        models.Post.id).filter(models.Post.user_name == current_user.user_name).all()
+        models.Post.id).order_by(models.Post.created_at.desc()).filter(models.Post.user_name == current_user.user_name).all()
     
     return posts
 
@@ -89,7 +89,7 @@ def delete_post(id: int,
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f"post with id: {id} does not exist")
 
-    if post.owner_id != current_user.id:
+    if post.user_name != current_user.user_name:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN,
                             detail="Not authorized to perform requested action")
 
